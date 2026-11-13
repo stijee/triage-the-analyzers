@@ -7,4 +7,12 @@
 
      Unlike the baseline, this file may grow, but every entry is a reviewed decision. -->
 <FindBugsFilter>
+  <!-- EI_EXPOSE_REP / EI_EXPOSE_REP2 (decision D1, 2026-11-12): every flagged site is one of three shapes,
+       none of which has a defensive-copy contract for the rule to protect.
+       - JPA entity associations: the managed object graph is shared by design; a defensive copy would
+         break Hibernate dirty-checking and entity identity.
+       - Spring constructor injection: handing singletons around by reference is the DI contract.
+       - DTOs: serialized once by Jackson and discarded. -->
+  <Match><Package name="~team\.projectpulse\..*"/><Bug pattern="EI_EXPOSE_REP"/></Match>
+  <Match><Package name="~team\.projectpulse\..*"/><Bug pattern="EI_EXPOSE_REP2"/></Match>
 </FindBugsFilter>
