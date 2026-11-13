@@ -34,6 +34,7 @@ public abstract class PeerEvaluationUser {
 
 
     public PeerEvaluationUser() {
+        // JPA: Hibernate instantiates the concrete subclass entities, which chain to this no-arg constructor.
     }
 
     public PeerEvaluationUser(String username, String firstName, String lastName, String email, String password, boolean enabled, String roles) {
