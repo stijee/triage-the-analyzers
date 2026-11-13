@@ -1,5 +1,6 @@
 package team.projectpulse.security;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import team.projectpulse.instructor.Instructor;
 import team.projectpulse.instructor.converter.InstructorToInstructorDtoConverter;
 import team.projectpulse.instructor.dto.InstructorDto;
@@ -29,6 +30,10 @@ public class AuthService {
         this.instructorToInstructorDtoConverter = instructorToInstructorDtoConverter;
     }
 
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE",
+            justification = "Authentication.getPrincipal() is @Nullable in Spring Security 7, but this method is reached"
+                    + " only from POST /users/login, which the route rule makes .authenticated() over HTTP Basic, so"
+                    + " DaoAuthenticationProvider has already set the principal to the MyUserPrincipal. A null here is unreachable.")
     public Map<String, Object> createLoginInfo(Authentication authentication) {
         // Create user info.
         MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
