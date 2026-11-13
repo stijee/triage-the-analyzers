@@ -13,5 +13,10 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
     <description>PMD quickstart, with Project Pulse's decisions.</description>
     <rule ref="rulesets/java/quickstart.xml">
+        <!-- GuardLogStatement (decision D4, 2026-11-12): all four flagged sites already use SLF4J parameterized
+             logging, so the message is only formatted when the level is enabled. The remaining arguments are
+             trivial getters and size() calls, and three of the four are at info/error, which are always
+             enabled, so a guard would buy nothing. -->
+        <exclude name="GuardLogStatement"/>
     </rule>
 </ruleset>
